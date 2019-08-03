@@ -19,13 +19,22 @@ class Track(models.Model):
     
     def __str__(self):
         return self.title
-    
+
+
+
+SESSION_STATUSES = (
+        ('a', 'Approved'),
+        ('s', 'Submitted'),
+        ('r', 'Rejected'),
+    )    
     
 class Session(models.Model):
     title = models.CharField(max_length = 50)
     abstract = models.TextField(max_length = 2000)
     track = models.ForeignKey(Track, on_delete=models.CASCADE)
     speaker = models.ForeignKey(Speaker, on_delete=models.CASCADE)
+    status = models.CharField(max_length = 1, choices = SESSION_STATUSES)
     
     def __str__(self):
         return self.title
+    
