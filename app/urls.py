@@ -23,5 +23,11 @@ urlpatterns = [
     url(r'^logout/$', auth.logout, name = 'logout'),
     url(r'^register/$', auth.register, name = 'register'),
     url(r'^home/$', views.home_page, name = 'home_page'),
+    
+    # Class based views
+    url(r'^sessions/$', views.SessionList.as_view(), name = 'sessions_list'),
+    url(r'^sessions/(?P<pk>[0-9]+)/$', views.SessionDetail.as_view(), name = 'sessions_detail'),
+    
+    
     url(r'^submit/$', views.submit_session, name = 'submit_session'),
 ]

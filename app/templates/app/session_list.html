@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+	{% for session in object_list %}
+		<div class="col-md-12">
+			<a href="{% url 'sessions_detail' session.pk %}">
+				{{ session.title }}
+			</a>
+		</div>
+	{% endfor %}
+{% endblock %}
