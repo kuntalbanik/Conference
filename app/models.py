@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 # Create your models here.
 
@@ -37,4 +38,7 @@ class Session(models.Model):
     
     def __str__(self):
         return self.title
-    
+    # Return to the sessions details page. put the exact name below 
+    # needs to be the registered name for the details
+    def get_absolute_url(self):
+        return reverse('sessions_detail', kwargs={'pk':self.pk})

@@ -24,10 +24,13 @@ urlpatterns = [
     url(r'^register/$', auth.register, name = 'register'),
     url(r'^home/$', views.home_page, name = 'home_page'),
     
-    # Class based views
+    # Class based urls
     url(r'^sessions/$', views.SessionList.as_view(), name = 'sessions_list'),
     url(r'^sessions/(?P<pk>[0-9]+)/$', views.SessionDetail.as_view(), name = 'sessions_detail'),
+    url(r'^sessions/create/$', views.SessionCreate.as_view(), name = 'sessions_create'),
+    url(r'^sessions/update/(?P<pk>[0-9]+)/$', views.SessionUpdate.as_view(), name = 'sessions_update'),
+    url(r'^sessions/delete/(?P<pk>[0-9]+)/$', views.SessionDelete.as_view(), name = 'sessions_delete'),
     
     
-    url(r'^submit/$', views.submit_session, name = 'submit_session'),
+#     url(r'^submit/$', views.submit_session, name = 'submit_session'),
 ]
