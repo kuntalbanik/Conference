@@ -1,5 +1,6 @@
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect
 from django.views.generic import *
 from .models import Session
@@ -19,6 +20,7 @@ def home_page(request):
     return render(request, 'auth/registered.html')
 
 # Creating class based views
+
 class SessionList(ListView):
     model = Session
     
@@ -26,16 +28,19 @@ class SessionDetail(DetailView):
     model = Session
 
 # Create Sessions
+@method_decorator(login_required, name='dispatch')
 class SessionCreate(CreateView):
     model = Session
     fields = ['title', 'abstract', 'track', 'speaker']
 
 # Update Session
+@method_decorator(login_required, name='dispatch')
 class SessionUpdate(UpdateView):
     model = Session
     fields = ['title', 'abstract', 'track', 'speaker']
 
 # Create Sessions
+@method_decorator(login_required, name='dispatch')
 class SessionDelete(DeleteView):
     model = Session
     # needs to match the name of the view I want to send the user back to
