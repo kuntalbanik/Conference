@@ -1,8 +1,10 @@
-from django.db import models
+from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
+from django.db import models
 
+
+# Html validation check
 # Create your models here.
-
 class Speaker(models.Model):
     name = models.CharField(max_length = 40)
     title = models.CharField(max_length = 50)
@@ -29,9 +31,21 @@ SESSION_STATUSES = (
         ('r', 'Rejected'),
     )    
     
+# Check html validation    
+def validate_nohtml(value):
+    try:
+        if value.index('<') > -1:
+            raise ValidationError("Html is not allowed")
+    except ValueError as e:
+        pass
+    except Exception as e:
+        raise ValidationError(e)
+
+
 class Session(models.Model):
     title = models.CharField(max_length = 50)
-    abstract = models.TextField(max_length = 2000)
+    # Setup validation in the abstract filed
+    abstract = models.TextField(max_length = 2000, validators=[validate_nohtml])
     track = models.ForeignKey(Track, on_delete=models.CASCADE)
     speaker = models.ForeignKey(Speaker, on_delete=models.CASCADE)
     status = models.CharField(max_length = 1, choices = SESSION_STATUSES)

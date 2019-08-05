@@ -33,7 +33,10 @@ LOGIN_URL = '/login'
 # Application definition
 
 INSTALLED_APPS = [
+    # use my custom apps
     'app.apps.AppConfig',
+    'crispy_forms',
+    #
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +44,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+### Setup booststrap 3
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+ 
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

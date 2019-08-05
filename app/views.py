@@ -1,10 +1,18 @@
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect
 from django.views.generic import *
 from .models import Session
 from django.core.urlresolvers import reverse_lazy
+# To protect class based views use the following module
+from django.contrib.auth.mixins import LoginRequiredMixin
+# To use custom forms  from 'forms.py' file
+from .forms import SessionForm  
+
+# To protect class based views use the following module
+# from django.utils.decorators import method_decorator
+# Using the below decorator class views can be required login
+# @method_decorator(login_required, name='dispatch')
 
 
 # from django.views.generic import *
@@ -28,20 +36,23 @@ class SessionDetail(DetailView):
     model = Session
 
 # Create Sessions
-@method_decorator(login_required, name='dispatch')
-class SessionCreate(CreateView):
+class SessionCreate(LoginRequiredMixin, CreateView):
     model = Session
-    fields = ['title', 'abstract', 'track', 'speaker']
+    # Using form fields from 'forms.py' file
+    form_class = SessionForm
+    # Manual from field setup here
+    # fields = ['title', 'abstract', 'track', 'speaker']
 
 # Update Session
-@method_decorator(login_required, name='dispatch')
-class SessionUpdate(UpdateView):
+class SessionUpdate(LoginRequiredMixin, UpdateView):
     model = Session
-    fields = ['title', 'abstract', 'track', 'speaker']
+    # Using form fields from 'forms.py' file
+    form_class = SessionForm
+    # Manual from field setup here
+    # fields = ['title', 'abstract', 'track', 'speaker']
 
 # Create Sessions
-@method_decorator(login_required, name='dispatch')
-class SessionDelete(DeleteView):
+class SessionDelete(LoginRequiredMixin, DeleteView):
     model = Session
     # needs to match the name of the view I want to send the user back to
     success_url = reverse_lazy('sessions_list') 
